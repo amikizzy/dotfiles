@@ -42,7 +42,14 @@
     enable = true;
     withUWSM = true;
   };
-
+  
+  nixpkgs = {
+      config = {
+        # Permit the installation of
+        # packages with unfree licences.
+        allowUnfree = true;
+      };
+	
   boot.loader.systemd-boot.enable = true;
   # Pressing ESC on boot will bring up the bootloader menu.
   boot.loader.timeout = 3;
