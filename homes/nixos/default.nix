@@ -219,6 +219,7 @@
         "${pkgs.wbg}/bin/wbg -s /home/danny/.config/wallpaper/wallpaper.png"
       ];
     };
+};
 
   # Do not change this!
   home.stateVersion = "25.11";
