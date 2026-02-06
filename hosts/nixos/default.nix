@@ -49,6 +49,7 @@
         # packages with unfree licences.
         allowUnfree = true;
       };
+};
 	
   boot.loader.systemd-boot.enable = true;
   # Pressing ESC on boot will bring up the bootloader menu.
