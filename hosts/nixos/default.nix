@@ -24,6 +24,18 @@
     };
   };
 
+hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.open = true;
+
+programs = {
+steam = {
+enable = true;
+remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remoteplay
+dedicatedServer.openFirewall = true; # Open ports in the firewall for steam server
+};
+};
+
   environment = {
     sessionVariables = {
       NIXOS_OZONE_WL = "1";

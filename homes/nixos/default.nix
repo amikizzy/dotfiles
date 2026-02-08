@@ -8,13 +8,17 @@
 
   # Add your packages here...
   home.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
     discord
     firefox
     vlc
     nautilus
-    vim
     btop
     ghostty
+    vscode
+    neovim
+    fastfetch
+    pavucontrol
 
     # Hyprland Specific
     wlr-randr
@@ -24,6 +28,10 @@
     tofi
   ];
 
+# The "Wiring" for Numb-0's Waybar
+  programs.waybar.enable = true;
+  xdg.configFile."waybar/config".source = ../../modules/waybar/config.jsonc;
+  xdg.configFile."waybar/style.css".source = ../../modules/waybar/style.css;
   # Git
   programs.git = {
     enable = true;
@@ -215,7 +223,7 @@
       ];
 
       exec-once = [
-        #"waybar"
+        "waybar"
         "${pkgs.wbg}/bin/wbg -s /home/danny/.config/wallpaper/wallpaper.png"
       ];
     };

@@ -1,0 +1,34 @@
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 14px;
+    font-weight: bold;
+}
+
+window#waybar {
+    background-color: rgba(0, 0, 0, 0); /* Full transparency for the main bar */
+}
+
+/* Base styling for all "Pills" */
+#workspaces, #clock, #network, #pulseaudio, #battery, #tray {
+    background-color: #313244; /* Dark grey-blue background */
+    padding: 2px 12px;
+    margin: 4px 4px;
+    border-radius: 16px; /* Rounded pill shape */
+    color: #cdd6f4;
+}
+
+/* Workspace Specifics */
+#workspaces button {
+    padding: 0 5px;
+    color: #f5c2e7; /* Pink dots */
+}
+
+#workspaces button.active {
+    color: #fab387; /* Orange active dot */
+}
+
+/* Module Colors */
+#clock { color: #89b4fa; }    /* Blue */
+#network { color: #a6e3a1; }  /* Green */
+#pulseaudio { color: #f9e2af; } /* Yellow */
+#battery { color: #eba0ac; }   /* Maroon/Red */
