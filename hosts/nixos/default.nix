@@ -24,26 +24,16 @@
     };
   };
 
-hardware.graphics.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.open = true;
-
-programs = {
-steam = {
-enable = true;
-remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remoteplay
-dedicatedServer.openFirewall = true; # Open ports in the firewall for steam server
-};
-};
-
   environment = {
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
       MOZ_ENABLE_WAYLAND = "1";
       XDG_SESSION_TYPE = "wayland";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-      AMD_VULKAN_ICD = "RADV";
       XKB_DEFAULT_LAYOUT = "uk";
+      GBM_BACKEND = "nvidia-drm";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      LIBVA_DRIVER_NAME = "nvidia";
     };
     # Required for nix-flatpak to work. Not in home-manager because of gmodena/nix-flatpak#33.
     systemPackages = [pkgs.flatpak];
@@ -55,13 +45,11 @@ dedicatedServer.openFirewall = true; # Open ports in the firewall for steam serv
     withUWSM = true;
   };
   
-  nixpkgs = {
-      config = {
-        # Permit the installation of
-        # packages with unfree licences.
-        allowUnfree = true;
-      };
-};
+  services.flatpak = {
+    enable = true;
+  };
+  
+  nixpkgs.config.allowUnfree = true;
 	
   boot.loader.systemd-boot.enable = true;
   # Pressing ESC on boot will bring up the bootloader menu.

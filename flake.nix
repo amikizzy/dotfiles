@@ -1,36 +1,26 @@
 {
-  description = "Danny's Nix flake - framework host";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    hyprland.url = "github:hyprwm/Hyprland";
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+    tpanel = {
+      url = "github:tuxdotrs/tpanel";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-      in {
-        packages.default = pkgs.hello;
+  outputs = {self, ...} @ inputs: {
+   # overlays = import ./overlays {inherit inputs;};
 
-        nixosConfigurations = {
-          framework = pkgs.lib.nixosSystem {
-            system = system;
-            modules = [ ./hosts/framework/default.nix ];
-          };
-        };
-
-        homeManagerConfigurations = {
-          danny = home-manager.lib.homeManagerConfiguration {
-            inherit system;
-            username = "danny";
-            homeDirectory = "/home/danny";
-            configuration = ./homes/nixos/default.nix;
-          };
-        };
-      });
+    nixosConfigurations = {
+      # Desktop
+      nixos = (import ./flake/nixos) {inherit inputs self;};
+    };
+  };
 }
+

@@ -4,11 +4,14 @@
     "mod": "dock",
     "exclusive": true,
     "passthrough": false,
-    "gtk-layer-shell": true,
-    "height": 0,
-    "modules-left": ["hyprland/workspaces", "hyprland/window"],
+    "height": 34,
+    "margin-top": 0,
+    "margin-bottom": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+    "modules-left": ["custom/appmenu", "custom/browser", "custom/github", "custom/youtube", "custom/editor", "hyprland/workspaces", "hyprland/window"],
     "modules-center": ["clock"],
-    "modules-right": ["network", "pulseaudio", "battery", "tray"],
+    "modules-right": ["mpris", "pulseaudio", "network", "backlight", "battery", "tray", "custom/powermenu"],
 
     "hyprland/workspaces": {
         "disable-scroll": true,
@@ -30,6 +33,23 @@
         "format-alt": "{:%A, %B %d, %Y} 󰃭 "
     },
 
+    "mpris": {
+        "format": "{statusIcon} {title} - {artist}",
+        "format-paused": " {title} - {artist}",
+        "format-playing": " {title} - {artist}",
+        "format-stopped": " Stopped",
+        "max-length": 20,
+        "player": "playerctld",
+        "status-icons": {
+            "paused": "",
+            "playing": "",
+            "stopped": ""
+        },
+        "on-click-right": "playerctl play-pause",
+        "tooltip": true,
+        "tooltip-format": "♫ {title}\nby {artist}\non {album}"
+    },
+
     "pulseaudio": {
         "format": "{volume}% {icon}",
         "format-muted": "󰝟",
@@ -37,6 +57,16 @@
             "default": ["󰕿", "󰖀", "󰕾"]
         },
         "on-click": "pamixer -t"
+    },
+
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "format-icons": ["󰃞", "󰃟", "󰃝", "󰃠", "󰃚"],
+        "on-click-middle": "brightnessctl set 100%",
+        "on-click-right": "brightnessctl set 10%",
+        "scroll-step": 2,
+        "tooltip": true,
+        "tooltip-format": "Brightness: {percent}%"
     },
 
     "network": {
@@ -55,8 +85,49 @@
         "format-icons": ["", "", "", "", ""]
     },
 
+    "custom/powermenu": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "bash /home/danny/dotfiles/scripts/powermenu.sh"
+    },
+
     "tray": {
         "icon-size": 21,
         "spacing": 10
+    }
+    ,
+    "custom/appmenu": {
+        "format": "󱄅",
+        "tooltip": true,
+        "tooltip-format": "Apps",
+        "on-click": "bash /home/danny/dotfiles/scripts/appmenu.sh"
+    }
+    ,
+    "custom/browser": {
+        "format": "",
+        "tooltip": true,
+        "tooltip-format": "Browser",
+        "on-click": "firefox"
+    }
+    ,
+    "custom/github": {
+        "format": "",
+        "tooltip": true,
+        "tooltip-format": "GitHub",
+        "on-click": "xdg-open https://github.com"
+    }
+    ,
+    "custom/youtube": {
+        "format": "",
+        "tooltip": true,
+        "tooltip-format": "YouTube",
+        "on-click": "xdg-open https://www.youtube.com"
+    }
+    ,
+    "custom/editor": {
+        "format": "",
+        "tooltip": true,
+        "tooltip-format": "Editor",
+        "on-click": "codium"
     }
 }

@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Run the home-manager activation package for user 'danny' from this flake.
-# If the flake exposes `homeManagerConfigurations.danny.activationPackage`, this will run it.
-nix run "${PWD}#homeManagerConfigurations.danny.activationPackage"
+# Build and run the Home Manager activation package for user 'danny'.
+# This works reliably with flakes without requiring the home-manager CLI.
+
+FLAKE_PATH="${PWD}"
+ATTR="homeManagerConfigurations.danny.activationPackage"
+
+echo "Building activation package: ${FLAKE_PATH}#${ATTR}"
+nix build "${FLAKE_PATH}#${ATTR}" -o ./result-home
+
+echo "Running activation script"
+./result-home/activate
+
+echo "Home Manager activation completed."
